@@ -1,0 +1,47 @@
+#!/bin/bash
+
+ print_line() {
+   local len=${1:-120}
+   local char="${2:-*}"
+   printf '%*s\n' "$len" '' | tr ' ' "$char"
+ }
+
+ echo "------Welcome $(whoami) to your first Shell Scripting Project------"
+ echo
+ echo "==> Current date is : $( date |  awk '{print $1, $2, $3, $6}')"
+ echo "==> Current time is : $( date |  awk '{print $4, $5}')"
+ echo
+ print_line
+ echo "The uptime of the system is : $(uptime)"
+ echo
+ print_line
+ echo "System is in running state since : $(uptime -p)"
+ echo
+ print_line
+ echo "The system was UP at : $(uptime -s)"
+ echo
+ print_line
+ echo "Status of the users who are logged in are : " && w
+ echo
+ print_line
+ echo "All the logins made to the machine are : " && last
+ echo
+ print_line
+ echo "Latest login made to the machine : " && last | head -1
+ echo
+ print_line
+ echo "Disk Space available on the filesystem : "
+ print_line 40 "-"
+ df -h | xargs | awk '{print "Total Space : " $9, " || Free_Space/Available_Space : " $10 "/" $11, " || Used_Memory : " $12}'
+ echo
+ print_line
+ echo "Summary of RAM Usage : "
+ print_line 40 "-"
+ free -h | xargs | awk '{print "Total_RAM_Available : " $8, " || Memory_Used : " $9, " || Unsed_Memory : " $10}'
+ echo
+ print_line
+ echo "Running Process in CPU : "
+ print_line 40 "-"
+ top -b | head -1
+ echo
+ print_line
